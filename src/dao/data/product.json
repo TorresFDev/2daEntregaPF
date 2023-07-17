@@ -1,0 +1,35 @@
+[	{
+    "id": 1,
+    "title": "PRUEBA 1",
+    "description": "descripcion 1",
+    "price": 800000,
+    "thumbnail": "https://pandashop.com.ar/wp-content/uploads/2023/03/placa-de-video-nvidia-zotac--geforce-rtx-40-series-rtx-4090-zt-d40900d-10p-24gb-4.jpg",
+    "code": 58,
+    "stock": 25,
+    "category": "segunda mano",
+    "status": false
+},
+{
+    "id": 2,
+    "title": "PRUEBA 2",
+    "description": "descripcion 2",
+    "price": 450000,
+    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1JX4grNtQFw6YbL8aPQtFVhS-UxlYQlR3aQ&usqp=CAU",
+    "code": 47,
+    "stock": 74,
+    "category": "segunda mano ",
+    "status": true
+},
+{
+    "id": 3,
+    "title": "PRUEBA 3",
+    "description": "descripcion 3",
+    "price": 750000,
+    "thumbnail": "https://s3-sa-east-1.amazonaws.com/saasargentina/i6kMZM3nx36nZoovzTaO/imagen",
+    "code": 125,
+    "stock": 35,
+    "category": "primera mano",
+    "status": false
+}
+
+]

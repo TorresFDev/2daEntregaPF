@@ -1,8 +1,8 @@
 import express from "express";
-import productRouter from "./routers/products.router.js";
+import productRouter from "./dao/routers/products.router.js"
 import mongoose, { mongo } from "mongoose";
 import handlebars from "express-handlebars";
-import viewRouter from "./routers/view.router.js";
+import viewRouter from "./dao/routers/view.router.js";
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(express.static("./public"));
 
 app.use("/api/products", productRouter);
 
-app.use("/api/cart", cartRouter);
+// app.use("/api/cart", cartRouter);
 
 app.use("/products", viewRouter);
 
@@ -24,5 +24,5 @@ await mongoose.connect(
 );
 
 const httpServer = app.listen(8080, () => {
-  console.log("estoy en ejecucion");
+  console.log("Server On!");
 });
