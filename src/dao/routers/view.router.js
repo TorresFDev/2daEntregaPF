@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { productManagerDB } from "../fsManager/product.manager";
+import { productManagerDB } from "../fsManager/product.manager.js";
 
 const router = Router();
 const managerDB = new productManagerDB();

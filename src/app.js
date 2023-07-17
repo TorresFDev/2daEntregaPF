@@ -1,6 +1,6 @@
 import express from "express";
 import productRouter from "./dao/routers/products.router.js"
-import mongoose, { mongo } from "mongoose";
+import mongoose  from "mongoose";
 import handlebars from "express-handlebars";
 import viewRouter from "./dao/routers/view.router.js";
 
@@ -26,3 +26,6 @@ await mongoose.connect(
 const httpServer = app.listen(8080, () => {
   console.log("Server On!");
 });
+
+
+
