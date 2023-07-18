@@ -1,5 +1,6 @@
 import express from "express";
 import productRouter from "./dao/routers/products.router.js"
+import cartRouter from "./dao/routers/carts.router.js"; 
 import mongoose  from "mongoose";
 import handlebars from "express-handlebars";
 import viewRouter from "./dao/routers/view.router.js";
@@ -15,7 +16,7 @@ app.use(express.static("./public"));
 
 app.use("/api/products", productRouter);
 
-// app.use("/api/cart", cartRouter);
+app.use("/api/cart", cartRouter);
 
 app.use("/products", viewRouter);
 

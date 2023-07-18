@@ -1,4 +1,3 @@
-
 import { Router } from "express";
 import { productManagerDB } from "../fsManager/product.manager.js";
 

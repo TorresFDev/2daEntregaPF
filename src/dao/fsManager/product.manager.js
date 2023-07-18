@@ -74,12 +74,12 @@ export class productManagerDB {
     } = request.body;
 
     if (typeof status != "boolean") {
-      response.status(400).send("status must be boolean");
+      response.status(400).send("debe ser un boolean");
       return;
     }
 
     if (!title || !description || !price || !stock || !code || !category) {
-      response.status(400).send("At least one field is missing");
+      response.status(400).send("faltan completar campos");
       return;
     }
 
@@ -88,7 +88,7 @@ export class productManagerDB {
     const validateCode = readFile.find((el) => el.code === code);
 
     if (validateCode) {
-      response.status(400).send("Code indicated already exits");
+      response.status(400).send("el codigo ya existe");
       return;
     }
 
@@ -108,7 +108,7 @@ export class productManagerDB {
       status,
     });
 
-    response.send({ status: "Successful request", payload: newItemInDB });
+    response.send({ status: "solicitud exitosa", payload: newItemInDB });
   };
 
   getProductById = async (id, response) => {
@@ -139,7 +139,7 @@ export class productManagerDB {
 
     const itemFounded = readFileToUpdate.filter((item) => item.id === id);
 
-    this.validateData(!itemFounded, "id not found");
+    this.validateData(!itemFounded, "id no encontrado");
 
     for (const document of itemFounded) {
       console.log("Documento:", document);
@@ -160,7 +160,7 @@ export class productManagerDB {
       await productsModel.findOneAndUpdate(_id, nuevoItem);
     }
 
-    response.send("Successful request");
+    response.send("solicitud exitosa");
   };
 
   deleteProduct = async (request, response) => {
@@ -174,13 +174,13 @@ export class productManagerDB {
       response
         .status(400)
         .send(
-          "Something went wrong: id did not exist on the list, try with another one"
+          "el id no existe en la lista"
         );
       return;
     }
 
     await productsModel.deleteOne(itemToDelete._id);
 
-    response.send({ status: "Id deleted succesfully", payload: itemToDelete });
+    response.send({ status: "Id borrado", payload: itemToDelete });
   };
 }

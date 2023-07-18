@@ -1,35 +1,57 @@
-[	{
-    "id": 1,
-    "title": "PRUEBA 1",
-    "description": "descripcion 1",
-    "price": 800000,
-    "thumbnail": "https://pandashop.com.ar/wp-content/uploads/2023/03/placa-de-video-nvidia-zotac--geforce-rtx-40-series-rtx-4090-zt-d40900d-10p-24gb-4.jpg",
-    "code": 58,
-    "stock": 25,
-    "category": "segunda mano",
-    "status": false
-},
-{
-    "id": 2,
-    "title": "PRUEBA 2",
-    "description": "descripcion 2",
-    "price": 450000,
-    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1JX4grNtQFw6YbL8aPQtFVhS-UxlYQlR3aQ&usqp=CAU",
-    "code": 47,
-    "stock": 74,
-    "category": "segunda mano ",
-    "status": true
-},
-{
-    "id": 3,
-    "title": "PRUEBA 3",
-    "description": "descripcion 3",
-    "price": 750000,
-    "thumbnail": "https://s3-sa-east-1.amazonaws.com/saasargentina/i6kMZM3nx36nZoovzTaO/imagen",
-    "code": 125,
-    "stock": 35,
-    "category": "primera mano",
-    "status": false
-}
-
+[
+	{
+		"title": "RTX 3080ti",
+		"description": "Placa de video",
+		"code": 589,
+		"price": 800000,
+		"status": true,
+		"stock": 20,
+		"category": "Hardware",
+		"thumbnail": "arwan.com.ar/wp-content/uploads/2023/04/nb_PLACA-DE-VIDEO-EVGA-RTX-3080TI-FTW3-ULTRA-12GB_ver_e662c008052037bd2b022f713c7bed44.jpeg",
+		"id": "3njUO"
+	},
+	{
+		"title": "RTX 3060",
+		"description": "Placa de video",
+		"code": 570,
+		"price": 400000,
+		"status": true,
+		"stock": 32,
+		"category": "Hardware",
+		"thumbnail": "https://front.dev.malditohard.com.ar/img/migration/PLACA-DE-VIDEO-RTX-3060-ASUS-ROG-STRIX-LHR.webp",
+		"id": "dc92g"
+	},
+	{
+		"title": "RX 6900xt",
+		"description": "Placa de video",
+		"code": 570,
+		"price": 1400000,
+		"status": true,
+		"stock": 27,
+		"category": "Hardware",
+		"thumbnail": "https://gamerspit.com.ar/wp-content/uploads/2022/01/Radeon-RX-6900-XT-Phantom-Gaming-D-16G-OCL1.png",
+		"id": "tkYZ7"
+	},
+	{
+		"title": "RX 6800xt",
+		"description": "Placa de video",
+		"code": 570,
+		"price": 1400000,
+		"status": true,
+		"stock": 27,
+		"category": "Hardware",
+		"thumbnail": "https://gamerspit.com.ar/wp-content/uploads/2022/01/Radeon-RX-6900-XT-Phantom-Gaming-D-16G-OCL1.png",
+		"id": "7XZ2z"
+	},
+	{
+		"title": "RX 6800xt",
+		"description": "Placa de video",
+		"code": 570,
+		"price": 1400000,
+		"status": true,
+		"stock": 27,
+		"category": "Hardware",
+		"thumbnail": "https://gamerspit.com.ar/wp-content/uploads/2022/01/Radeon-RX-6900-XT-Phantom-Gaming-D-16G-OCL1.png",
+		"id": "xwWbn"
+	}
 ]
