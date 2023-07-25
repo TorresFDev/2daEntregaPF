@@ -1,10 +1,9 @@
 import { Router, query } from "express";
-import { ProductManager } from "../fsManager/productManagerWithFiles";
+import { ProductManager } from "../fsManager/productManagerWithFiles.js";
 import { cartManagerDB } from "../fsManager/cart.manager.js";
 
 const router = Router();
-const manager = new ProductManager(
-"../data/cart.json");
+const manager = new ProductManager("../data/cart.json");
 
 const managerDB = new cartManagerDB();
 

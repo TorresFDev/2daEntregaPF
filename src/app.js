@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 
 app.engine("handlebars", handlebars.engine());
-app.set("views", "./src/views");
+app.set("views", "./src/dao/views");
 app.set("view engine", "handlebars");
 app.use(express.static("./public"));
 
