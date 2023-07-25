@@ -1,0 +1,21 @@
+<div>
+    Tienes cuenta?
+    <form id="formulario" method="POST" action="/api/sessions/login">
+        <li>
+            <label for="email">email: </label>
+            <input type="text" id="email" name="email">
+        </li>       
+        <li>
+            <label for="password">Password: </label>
+            <input type="text" id="password" name="password">
+        </li>
+        <li class="button">
+            <button type="submit">Ingresar</button>
+        </li>
+    </form>
+    <hr>
+    No estas registrado? 
+    <form action="/api/sessions/registro">
+    <button type="submit">Registrarme</button>
+    </form>
+</div>
