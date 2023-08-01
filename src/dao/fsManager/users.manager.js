@@ -1,6 +1,6 @@
 import userModel from "../models/user.model.js";
 import productsModel from "../models/products.model.js";
-
+import { isValidPassword } from "../utils/utils.js"
 export class userManager {
   constructor() {}
 
@@ -8,55 +8,43 @@ export class userManager {
     return await userModel.find();
   };
 
-  registerUser = async (request, response) => {
-    const { first_name, last_name, email, age, password } = request.body;
-
-    let validateData = await this.readBD();
-    const validateEmail = validateData.filter((item) => item.email === email);
-
-    if (validateEmail.length === 1) {
-      response.status(400).json({ message: "usuario ya existe" });
-      return;
-    }
-
-    await userModel.create({
-      first_name,
-      last_name,
-      email,
-      age,
-      password,
-      role: "usuario",
-    });
-
-    response.redirect("/api/sessions/login");
-  };
-
   loginSession = async (request, response) => {
     const { email, password } = request.body;
-    let validateData = await this.readBD();
-
-    const validateEmailExits = validateData.filter(
-      (item) => item.email === email
-    );
+    const validateEmailExits = await userModel.find({email}).lean().exec()
 
     if (validateEmailExits.length === 0) {
       response.redirect("/api/sessions/registro");
       return;
     }
 
-    const validateEmailAndPassword = validateData.find(
-      (item) => item.email === email && item.password === password
-    );
+    let dbPassword = ""
 
-    if (validateEmailAndPassword === undefined) {
+    for (const iterator of validateEmailExits) {
+      const { password } = iterator
+      dbPassword = password
+    }
+    
+    const validatePassword = isValidPassword(password, dbPassword)
+
+    if (validatePassword === false) {
       response.status(400).json({
         message: "Usuario o contrase*a incorrecto",
       });
       return;
     }
 
+    let first_nameCapture
+    let roleCapture
+
+    for (const iterator of validateEmailExits) {
+      const { first_name, role } = iterator
+      first_nameCapture = first_name
+      roleCapture = role
+    }
+
     const user = {
-      email: email,
+      first_name: first_nameCapture,
+      role: roleCapture
     };
 
     request.session.user = user;
@@ -117,19 +105,23 @@ export class userManager {
       nextLink: result.nextLink,
     };
 
+    console.log("resultToSend")
+    console.log(resultToSend.payload)
+    console.log(result.docs)
+
     let readDB = await this.readBD();
 
-    const userEmail = request.session.user.email;
+    const userName = request.session.user.first_name;
 
-    const searchUser = readDB.filter((item) => item.email === userEmail);
-
+    const searchUser = readDB.filter((item) => item.first_name === userName);
+    
     let userRole = "";
 
     for (const iterator of searchUser) {
       userRole = iterator.role;
     }
 
-    const usuario = { user: userEmail, role: userRole };
+    const usuario = { user: userName, role: userRole };
 
     resultToSend.users = usuario;
 

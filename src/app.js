@@ -4,9 +4,12 @@ import cartRouter from "./dao/routers/carts.router.js";
 import mongoose  from "mongoose";
 import handlebars from "express-handlebars";
 // import viewRouter from "./dao/routers/view.router.js";
-import MongoStore from 'connect-mongo'
+import MongoStore from 'connect-mongo';
 import session from "express-session";
-import sessionsRouter from "./dao/routers/sessions.router.js"
+import sessionsRouter from "./dao/routers/sessions.router.js":
+import passport from "passport";
+import initializePassport from "./config/passport.config.js";
+
 
 const app = express();
 
@@ -33,13 +36,19 @@ app.use(session({
   saveUninitialized: true
 }))
 
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use("/api/products", productRouter);
 
 app.use("/api/cart", cartRouter);
 
-app.use("/api/sessions", sessionsRouter)
+//app.use("/api/products", viewRouter);
 
-// app.use("/products", viewRouter);
+
+//ruta login
+app.use("/api/sessions", sessionsRouter)
 
 await mongoose.connect(
   "mongodb+srv://coder:coder@cluster0.i2hgwbg.mongodb.net/ecommmerce"
