@@ -3,6 +3,7 @@ import local from "passport-local";
 import GitHubStrategy from "passport-github2";
 import userModel from "../dao/models/user.model.js";
 import { createHash } from "../dao/utils/utils.js";
+import cartModel from "../dao/models/cart.model.js";
 
 const LocalStrategy = local.Strategy;
 
@@ -27,19 +28,34 @@ const initializePassport = () => {
 
           const user = await userModel.findOne({ email: emailInDbString });
 
-          if (user) return done(null, user);
+          let requestOptions = {
+            method: "POST",
+          };
+          // creo el carrito de compras para asociarlo al usuario que se va a crear
+          fetch("http://localhost:8080/api/cart/", requestOptions)
+            .then((response) => response.text())
+            .then((result) => console.log(result))
+            .catch((error) => console.log("error", error));
 
-          if (user === null) {
-            const newUser = await userModel.create({
-              first_name: profile._json.login,
-              last_name: "NA",
-              email: emailInDb,
-              age: 0,
-              password: "github",
-              role: "usuario",
-            });
-            return done(null, newUser);
-          }
+          setTimeout(async () => {
+            let readFile = await cartModel.find();
+            let cartId = readFile[readFile.length - 1].id;
+
+            if (user) return done(null, user);
+
+            if (user === null) {
+              const newUser = await userModel.create({
+                first_name: profile._json.login,
+                last_name: "NA",
+                email: emailInDb,
+                age: 0,
+                password: "github",
+                cart: cartId,
+                role: "usuario",
+              });
+              return done(null, newUser);
+            }
+          }, 1000);
         } catch (error) {
           console.log(error);
         }
@@ -70,16 +86,32 @@ const initializePassport = () => {
             return;
           }
 
-          const newUser = await userModel.create({
-            first_name,
-            last_name,
-            email,
-            age,
-            password: passwordHash,
-            role: "usuario",
-          });
+          let requestOptions = {
+            method: "POST",
+          };
 
-          return done(null, newUser);
+          // creo el carrito de compras para asociarlo al usuario que se va a crear
+          fetch("http://localhost:8080/api/cart/", requestOptions)
+            .then((response) => response.text())
+            .then((result) => console.log(result))
+            .catch((error) => console.log("error", error));
+
+          setTimeout(async () => {
+            let readFile = await cartModel.find();
+            let cartId = readFile[readFile.length - 1].id;
+
+            const newUser = await userModel.create({
+              first_name,
+              last_name,
+              email,
+              age,
+              password: passwordHash,
+              cart: cartId,
+              role: "usuario",
+            });
+
+            return done(null, newUser);
+          }, 1000);
         } catch (error) {
           console.log(error);
         }

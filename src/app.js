@@ -6,7 +6,7 @@ import handlebars from "express-handlebars";
 // import viewRouter from "./dao/routers/view.router.js";
 import MongoStore from 'connect-mongo';
 import session from "express-session";
-import sessionsRouter from "./dao/routers/sessions.router.js":
+import sessionsRouter from "./dao/routers/sessions.router.js";
 import passport from "passport";
 import initializePassport from "./config/passport.config.js";
 
