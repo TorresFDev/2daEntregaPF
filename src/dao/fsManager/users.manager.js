@@ -10,21 +10,21 @@ export class userManager {
 
   loginSession = async (request, response) => {
     const { email, password } = request.body;
-    const validateEmailExits = await userModel.find({email}).lean().exec()
+    const validateEmailExits = await userModel.find({ email }).lean().exec();
 
     if (validateEmailExits.length === 0) {
       response.redirect("/api/sessions/registro");
       return;
     }
 
-    let dbPassword = ""
+    let dbPassword = "";
 
     for (const iterator of validateEmailExits) {
-      const { password } = iterator
-      dbPassword = password
+      const { password } = iterator;
+      dbPassword = password;
     }
-    
-    const validatePassword = isValidPassword(password, dbPassword)
+
+    const validatePassword = isValidPassword(password, dbPassword);
 
     if (validatePassword === false) {
       response.status(400).json({
@@ -33,18 +33,18 @@ export class userManager {
       return;
     }
 
-    let first_nameCapture
-    let roleCapture
+    let first_nameCapture;
+    let roleCapture;
 
     for (const iterator of validateEmailExits) {
-      const { first_name, role } = iterator
-      first_nameCapture = first_name
-      roleCapture = role
+      const { first_name, role } = iterator;
+      first_nameCapture = first_name;
+      roleCapture = role;
     }
 
     const user = {
       first_name: first_nameCapture,
-      role: roleCapture
+      role: roleCapture,
     };
 
     request.session.user = user;
@@ -92,7 +92,7 @@ export class userManager {
       ? `/api/sessions/view/?limit=${limit}&page=${result.nextPage}&sort=${sort}&query=${query}`
       : null;
 
-    const resultToSend = {
+      const resultToSend = {
       status: "success",
       payload: { docs: result.docs },
       totalPages: result.totalPages,
@@ -105,28 +105,33 @@ export class userManager {
       nextLink: result.nextLink,
     };
 
-    console.log("resultToSend")
-    console.log(resultToSend.payload)
-    console.log(result.docs)
-
-    let readDB = await this.readBD();
-
     const userName = request.session.user.first_name;
 
-    const searchUser = readDB.filter((item) => item.first_name === userName);
-    
+    let searchUser = await userModel.find({first_name: userName});
     let userRole = "";
+    let cartId = ""
 
     for (const iterator of searchUser) {
       userRole = iterator.role;
+      cartId = iterator.cart
     }
 
-    const usuario = { user: userName, role: userRole };
+    const usuario = { user: userName, role: userRole, cart: cartId };
 
     resultToSend.users = usuario;
 
     response.render("products", resultToSend);
   };
+  
+  currentUser = async (request, response) => {
+    let currentUser = request.session.user
+    
+    if (currentUser === undefined){
+      currentUser = { message: "session not registered" }
+    }
+    response.send(currentUser)
+  }
 }
+
 
 export default userManager;
